@@ -1,0 +1,434 @@
+Q.1
+
+----------------------------------------
+activity_main.xml
+--------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <ScrollView
+        android:layout_width="242dp"
+        android:layout_height="228dp"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#f00"
+                android:text="Button 1"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="#0f0"
+                android:text="Button 2"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="#00f"
+                android:text="Button 3"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="#ff0"
+                android:text="Button 4"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="#f0f"
+                android:text="Button 5"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="#f90"
+                android:text="Button 6"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="#f00"
+                android:text="Button 7"
+                android:textColor="#ff9"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="#444"
+                android:text="Button 8"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="#ff002211"
+                android:text="Button 9"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="#0f0"
+                android:text="Button 10"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
+
+------------------------------------
+MainActivity.java
+---------------------------------------
+package com.example.scroll;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+===================================================================================================================================
+
+Q.2
+
+main_activity.xml
+--------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextTeacherName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Teacher Name"
+        android:inputType="text"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/editTextTeacherQualification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Teacher Qualification"
+        android:inputType="text"
+        android:layout_below="@id/editTextTeacherName"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextTeacherExperience"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Teacher Experience"
+        android:inputType="number"
+        android:layout_below="@id/editTextTeacherQualification"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/buttonAddTeacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextTeacherExperience"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Add Teacher"
+        android:onClick="addTeacher"/>
+
+    <EditText
+        android:id="@+id/editTextStudentName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Student Name"
+        android:inputType="text"
+        android:layout_below="@id/buttonAddTeacher"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextStudentClass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Student Class"
+        android:inputType="text"
+        android:layout_below="@id/editTextStudentName"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextStudentAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Student Address"
+        android:inputType="text"
+        android:layout_below="@id/editTextStudentClass"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/buttonAddStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextStudentAddress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Add Student"
+        android:onClick="addStudent"/>
+
+    <ListView
+        android:id="@+id/listViewStudents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonAddStudent"
+        android:layout_marginTop="16dp"/>
+</RelativeLayout>
+
+
+------------------------------------------------
+MainActivity.JAVA
+------------------------------------------------
+
+package com.example.student;
+
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    private EditText editTextTeacherName;
+    private EditText editTextTeacherQualification;
+    private EditText editTextTeacherExperience;
+    private EditText editTextStudentName;
+    private EditText editTextStudentClass;
+    private EditText editTextStudentAddress;
+    private ListView listViewStudents;
+    private ArrayAdapter<String> adapter;
+    private SQLiteDatabase db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editTextTeacherName = findViewById(R.id.editTextTeacherName);
+        editTextTeacherQualification = findViewById(R.id.editTextTeacherQualification);
+        editTextTeacherExperience = findViewById(R.id.editTextTeacherExperience);
+        editTextStudentName = findViewById(R.id.editTextStudentName);
+        editTextStudentClass = findViewById(R.id.editTextStudentClass);
+        editTextStudentAddress = findViewById(R.id.editTextStudentAddress);
+        listViewStudents = findViewById(R.id.listViewStudents);
+
+        // Initialize the adapter
+        List<String> studentList = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, studentList);
+        listViewStudents.setAdapter(adapter);
+
+        // Initialize the database
+        StudentTeacherDbHelper dbHelper = new StudentTeacherDbHelper(this);
+        db = dbHelper.getWritableDatabase();
+    }
+
+    public void showStudents(View view) {
+        String teacherName = editTextTeacherName.getText().toString().trim();
+        if (teacherName.isEmpty()) {
+            Toast.makeText(this, "Please enter a teacher name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        List<String> studentList = getStudentsByTeacher(teacherName);
+        if (studentList.isEmpty()) {
+            Toast.makeText(this, "No students found for the given teacher", Toast.LENGTH_SHORT).show();
+        } else {
+            adapter.clear();
+            adapter.addAll(studentList);
+        }
+    }
+
+    private List<String> getStudentsByTeacher(String teacherName) {
+        List<String> studentList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT s_name FROM Student INNER JOIN StudentTeacher ON Student.sno = StudentTeacher.sno INNER JOIN Teacher ON StudentTeacher.tno = Teacher.tno WHERE t_name = ?", new String[]{teacherName});
+        while (cursor.moveToNext()) {
+            String studentName = cursor.getString(cursor.getColumnIndexOrThrow("s_name"));
+            studentList.add(studentName);
+        }
+        cursor.close();
+        return studentList;
+    }
+
+    public void addTeacher(View view) {
+        String teacherName = editTextTeacherName.getText().toString().trim();
+        String qualification = editTextTeacherQualification.getText().toString().trim();
+        int experience = Integer.parseInt(editTextTeacherExperience.getText().toString().trim());
+
+        ContentValues values = new ContentValues();
+        values.put("t_name", teacherName);
+        values.put("qualification", qualification);
+        values.put("experience", experience);
+
+        long newRowId = db.insert("Teacher", null, values);
+        if (newRowId != -1) {
+            Toast.makeText(this, "Teacher added successfully", Toast.LENGTH_SHORT).show();
+            // Clear input fields
+            editTextTeacherName.setText("");
+            editTextTeacherQualification.setText("");
+            editTextTeacherExperience.setText("");
+        } else {
+            Toast.makeText(this, "Failed to add teacher", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void addStudent(View view) {
+        String studentName = editTextStudentName.getText().toString().trim();
+        String studentClass = editTextStudentClass.getText().toString().trim();
+        String studentAddress = editTextStudentAddress.getText().toString().trim();
+
+        ContentValues values = new ContentValues();
+        values.put("s_name", studentName);
+        values.put("s_class", studentClass);
+        values.put("s_addr", studentAddress);
+
+        long newRowId = db.insert("Student", null, values);
+        if (newRowId != -1) {
+            Toast.makeText(this, "Student added successfully", Toast.LENGTH_SHORT).show();
+            // Clear input fields
+            editTextStudentName.setText("");
+            editTextStudentClass.setText("");
+            editTextStudentAddress.setText("");
+        } else {
+            Toast.makeText(this, "Failed to add student", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+
+------------------------------------------
+studenttecherDBHelper
+-----------------------------------------
+
+package com.example.student;
+
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+public class StudentTeacherDbHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "SchoolDB";
+    private static final int DATABASE_VERSION = 1;
+
+    public StudentTeacherDbHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS Student (sno INTEGER PRIMARY KEY, s_name TEXT, s_class TEXT, s_addr TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS Teacher (tno INTEGER PRIMARY KEY, t_name TEXT, qualification TEXT, experience INTEGER)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS StudentTeacher (sno INTEGER, tno INTEGER, FOREIGN KEY (sno) REFERENCES Student(sno), FOREIGN KEY (tno) REFERENCES Teacher(tno), PRIMARY KEY (sno, tno))");
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Handle database upgrade if needed
+    }
+}
+
+------------------------------------
+student,java
+----------------------------
+
+package com.example.student;
+
+public class Student {
+    private int sno;
+    private String name;
+    private String s_class;
+    private String address;
+
+    // Constructor, getters, and setters
+}
+
+
+-----------------------------------------
+Teacher.java
+-------------------------------------
+package com.example.student;
+
+public class Teacher {
+    private int tno;
+    private String name;
+    private String qualification;
+    private int experience;
+
+    // Constructor, getters, and setters
+}
+
+
+
+

@@ -1,0 +1,295 @@
+Q1)
+XML
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/font_size_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Font Size"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:onClick="changeFontSize"/>
+
+    <Button
+        android:id="@+id/font_color_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Font Color"
+        android:layout_below="@id/font_size_button"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:onClick="changeFontColor"/>
+
+    <Button
+        android:id="@+id/font_family_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Font Family"
+        android:layout_below="@id/font_color_button"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:onClick="changeFontFamily"/>
+
+    <TextView
+        android:id="@+id/display_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HELLO WORLD !"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_below="@id/font_family_button"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+</RelativeLayout>
+-----------------------------------------------------------------------------------------------------
+JAVA
+
+package com.example.firstprogram;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import java.util.Random;
+
+public class MainActivity extends AppCompatActivity {
+
+    //    EditText editText;
+    TextView displayText;
+
+    // Array of font families
+    private static final String[] FONT_FAMILIES = {"sans-serif", "serif", "monospace"};
+
+    // Array of colors
+    private static final int[] COLORS = {
+            Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.MAGENTA, Color.CYAN
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+//        editText = findViewById(R.id.edit_text);
+        displayText = findViewById(R.id.display_text);
+    }
+
+    public void changeFontSize(View view) {
+//        String text = editText.getText().toString();
+        float size = displayText.getTextSize() / getResources().getDisplayMetrics().scaledDensity;
+        size += 2; // Increase font size by 2sp
+        displayText.setTextSize(size);
+    }
+
+    public void changeFontColor(View view) {
+        // Get a random color from the COLORS array
+        Random random = new Random();
+        int colorIndex = random.nextInt(COLORS.length);
+        int color = COLORS[colorIndex];
+        displayText.setTextColor(color);
+    }
+
+    public void changeFontFamily(View view) {
+        // Get a random font family from the FONT_FAMILIES array
+        Random random = new Random();
+        int fontFamilyIndex = random.nextInt(FONT_FAMILIES.length);
+        String fontFamily = FONT_FAMILIES[fontFamilyIndex];
+        Typeface typeface = Typeface.create(fontFamily, Typeface.NORMAL);
+        displayText.setTypeface(typeface);
+    }
+}
+===========================================================================================================================
+Q2)
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/firstNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First Name"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/middleNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Middle Name"
+        android:layout_below="@id/firstNameEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/lastNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Last Name"
+        android:layout_below="@id/middleNameEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/dobEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date of Birth (DOB)"
+        android:layout_below="@id/lastNameEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/addressEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address"
+        android:layout_below="@id/dobEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email ID"
+        android:layout_below="@id/addressEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_below="@id/emailEditText"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
+---------------------------------------------------------------------------------------------
+MainActivity.java
+
+package com.example.slip11_q2a;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private EditText firstNameEditText, middleNameEditText, lastNameEditText;
+    private EditText dobEditText, addressEditText, emailEditText;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        firstNameEditText = findViewById(R.id.firstNameEditText);
+        middleNameEditText = findViewById(R.id.middleNameEditText);
+        lastNameEditText = findViewById(R.id.lastNameEditText);
+        dobEditText = findViewById(R.id.dobEditText);
+        addressEditText = findViewById(R.id.addressEditText);
+        emailEditText = findViewById(R.id.emailEditText);
+
+        Button submitButton = findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSecondActivity();
+            }
+        });
+    }
+
+    private void openSecondActivity() {
+        String firstName = firstNameEditText.getText().toString();
+        String middleName = middleNameEditText.getText().toString();
+        String lastName = lastNameEditText.getText().toString();
+        String dob = dobEditText.getText().toString();
+        String address = addressEditText.getText().toString();
+        String email = emailEditText.getText().toString();
+
+        Intent intent = new Intent(this, DisplayActivity.class);
+        intent.putExtra("FIRST_NAME", firstName);
+        intent.putExtra("MIDDLE_NAME", middleName);
+        intent.putExtra("LAST_NAME", lastName);
+        intent.putExtra("DOB", dob);
+        intent.putExtra("ADDRESS", address);
+        intent.putExtra("EMAIL", email);
+        startActivity(intent);
+    }
+}
+----------------------------------------------------------------------------------------------
+activity_display.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".DisplayActivity">
+
+    <TextView
+        android:id="@+id/detailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student Details"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>
+---------------------------------------------------------------------------------------------------------
+DisplayActivity.java
+
+package com.example.slip11_q2a;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class DisplayActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_display);
+
+        TextView detailsTextView = findViewById(R.id.detailsTextView);
+
+        Intent intent = getIntent();
+        String firstName = intent.getStringExtra("FIRST_NAME");
+        String middleName = intent.getStringExtra("MIDDLE_NAME");
+        String lastName = intent.getStringExtra("LAST_NAME");
+        String dob = intent.getStringExtra("DOB");
+        String address = intent.getStringExtra("ADDRESS");
+        String email = intent.getStringExtra("EMAIL");
+
+        String details = "First Name: " + firstName + "\n" +
+                "Middle Name: " + middleName + "\n" +
+                "Last Name: " + lastName + "\n" +
+                "DOB: " + dob + "\n" +
+                "Address: " + address + "\n" +
+                "Email: " + email;
+
+        detailsTextView.setText(details);
+    }
+}
+====================================================================================================

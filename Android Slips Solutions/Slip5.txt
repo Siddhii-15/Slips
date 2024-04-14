@@ -1,0 +1,267 @@
+Q1)
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/first_number_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter first number"
+        android:inputType="number"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/second_number_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter second number"
+        android:inputType="number"
+        android:layout_below="@id/first_number_edit_text"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <Button
+        android:id="@+id/calculate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate"
+        android:layout_below="@id/second_number_edit_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"/>
+
+</RelativeLayout>
+----------------------------------------------------------------------------------
+activity_display.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/power_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Power: "
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:id="@+id/average_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Average: "
+        android:layout_below="@id/power_text_view"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+</RelativeLayout>
+-------------------------------------------------------------------------------------
+DisplayActivity.java
+
+package com.example.slip5_q1;
+
+import android.os.Bundle;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class DisplayActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_display);
+
+        TextView powerTextView = findViewById(R.id.power_text_view);
+        TextView averageTextView = findViewById(R.id.average_text_view);
+
+        double power = getIntent().getDoubleExtra("power", 0);
+        double average = getIntent().getDoubleExtra("average", 0);
+
+        powerTextView.setText("Power: " + power);
+        averageTextView.setText("Average: " + average);
+    }
+}
+------------------------------------------------------------------------------------------
+Mainactivity.java
+
+package com.example.slip5_q1;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private EditText firstNumberEditText, secondNumberEditText;
+    private Button calculateButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        firstNumberEditText = findViewById(R.id.first_number_edit_text);
+        secondNumberEditText = findViewById(R.id.second_number_edit_text);
+        calculateButton = findViewById(R.id.calculate_button);
+
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculate();
+            }
+        });
+    }
+
+    private void calculate() {
+        double num1 = Double.parseDouble(firstNumberEditText.getText().toString());
+        double num2 = Double.parseDouble(secondNumberEditText.getText().toString());
+
+        double power = Math.pow(num1, num2);
+        double average = (num1 + num2) / 2;
+
+        Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
+        intent.putExtra("power", power);
+        intent.putExtra("average", average);
+        startActivity(intent);
+    }
+}
+------------------------------------------------------------------------------------------
+AndroidManifest.xml
+
+<activity
+    android:name=".DisplayActivity"
+    android:exported="true">
+</activity>
+====================================================================================================
+
+Q2)
+activity_main.java
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/showAlertDialogButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Custom AlertDialog"
+        android:layout_centerInParent="true"/>
+</RelativeLayout>
+---------------------------------------------------------------------------------------------
+MainActivity.java
+
+package com.example.slip5_q1a;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private Context mContext;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mContext = this;
+
+        Button showAlertDialogButton = findViewById(R.id.showAlertDialogButton);
+        showAlertDialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCustomAlertDialog();
+            }
+        });
+    }
+
+    private void showCustomAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_custom_alert, null);
+        builder.setView(dialogView);
+
+        TextView friend1Button = dialogView.findViewById(R.id.friend1Button);
+        TextView friend2Button = dialogView.findViewById(R.id.friend2Button);
+
+        final AlertDialog alertDialog = builder.create();
+        friend1Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                greetFriend("John");
+                alertDialog.dismiss();
+            }
+        });
+
+        friend2Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                greetFriend("Alice");
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    private void greetFriend(String friendName) {
+        Toast.makeText(mContext, "Hello " + friendName + "!", Toast.LENGTH_SHORT).show();
+    }
+}
+-------------------------------------------------------------------------------------------------------
+activity_custom_alert.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/friend1Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="John"
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/friend2Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Alice"
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/white"/>
+</LinearLayout>
+=========================================================================================

@@ -1,0 +1,383 @@
+Q1)
+XML
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/college_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MIT ACSC, PUNE"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/change_color_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Color"
+        android:layout_below="@id/college_name_text_view"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/change_size_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Size"
+        android:layout_below="@id/college_name_text_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/change_style_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Style"
+        android:layout_below="@id/college_name_text_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
+-----------------------------------------------------------------------------
+JAVA
+
+package com.example.slip3_q1;
+
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView collegeNameTextView;
+    private Button changeColorButton;
+    private Button changeSizeButton;
+    private Button changeStyleButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        collegeNameTextView = findViewById(R.id.college_name_text_view);
+        changeColorButton = findViewById(R.id.change_color_button);
+        changeSizeButton = findViewById(R.id.change_size_button);
+        changeStyleButton = findViewById(R.id.change_style_button);
+
+        // Set OnClickListener for Change Color button
+        changeColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Change text color to red
+                collegeNameTextView.setTextColor(Color.RED);
+            }
+        });
+
+        // Set OnClickListener for Change Size button
+        changeSizeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Change font size to 28sp
+                collegeNameTextView.setTextSize(28);
+            }
+        });
+
+        // Set OnClickListener for Change Style button
+        changeStyleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Change font style to italic
+                collegeNameTextView.setTypeface(null, Typeface.ITALIC);
+            }
+        });
+    }
+}
+=======================================================================================
+Q2)
+XML
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/number_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter a number"
+        android:inputType="number"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/calculate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate Factorial"
+        android:layout_below="@id/number_edit_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
+-----------------------------------------------------------------------------------------
+JAVA
+
+package com.example.slip3_q2a;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class MainActivity extends AppCompatActivity {
+
+    private EditText numberEditText;
+    private Button calculateButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        numberEditText = findViewById(R.id.number_edit_text);
+        calculateButton = findViewById(R.id.calculate_button);
+
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the number entered by the user
+                int number = Integer.parseInt(numberEditText.getText().toString());
+
+                // Calculate the factorial
+                long factorial = calculateFactorial(number);
+
+                // Display the result in an alert dialog
+                displayResult(factorial);
+            }
+        });
+    }
+
+    // Method to calculate factorial
+    private long calculateFactorial(int n) {
+        long factorial = 1;
+        for (int i = 1; i <= n; i++) {
+            factorial *= i;
+        }
+        return factorial;
+    }
+
+    // Method to display the result in an alert dialog
+    private void displayResult(long factorial) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Factorial Result");
+        builder.setMessage("The factorial of the number is: " + factorial);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Close the dialog
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+}
+==========================================================================================
+Q2)(OR)
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/surnameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Surname"
+        android:layout_below="@id/nameEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/classEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Class"
+        android:layout_below="@id/surnameEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/genderEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Gender"
+        android:layout_below="@id/classEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/hobbiesEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hobbies"
+        android:layout_below="@id/genderEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/marksEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Marks"
+        android:layout_below="@id/hobbiesEditText"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_below="@id/marksEditText"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>
+-----------------------------------------------------------------------------------------
+MainActivity.java
+
+package com.example.slip16_q1;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText nameEditText, surnameEditText, classEditText, genderEditText, hobbiesEditText, marksEditText;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        nameEditText = findViewById(R.id.nameEditText);
+        surnameEditText = findViewById(R.id.surnameEditText);
+        classEditText = findViewById(R.id.classEditText);
+        genderEditText = findViewById(R.id.genderEditText);
+        hobbiesEditText = findViewById(R.id.hobbiesEditText);
+        marksEditText = findViewById(R.id.marksEditText);
+
+        Button submitBtn = findViewById(R.id.submitBtn);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = nameEditText.getText().toString();
+                String surname = surnameEditText.getText().toString();
+                String studentClass = classEditText.getText().toString();
+                String gender = genderEditText.getText().toString();
+                String hobbies = hobbiesEditText.getText().toString();
+                String marks = marksEditText.getText().toString();
+
+                Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
+                intent.putExtra("NAME", name);
+                intent.putExtra("SURNAME", surname);
+                intent.putExtra("CLASS", studentClass);
+                intent.putExtra("GENDER", gender);
+                intent.putExtra("HOBBIES", hobbies);
+                intent.putExtra("MARKS", marks);
+                startActivity(intent);
+            }
+        });
+    }
+}
+------------------------------------------------------------------------------------------
+activity_display.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:id="@+id/detailsTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+    </TableLayout>
+</ScrollView>
+---------------------------------------------------------------------------------------
+DisplayActivity.java
+
+package com.example.slip16_q1;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class DisplayActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_display);
+
+        TableLayout detailsTable = findViewById(R.id.detailsTable);
+
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("NAME");
+        String surname = intent.getStringExtra("SURNAME");
+        String studentClass = intent.getStringExtra("CLASS");
+        String gender = intent.getStringExtra("GENDER");
+        String hobbies = intent.getStringExtra("HOBBIES");
+        String marks = intent.getStringExtra("MARKS");
+
+        // Create table row for each detail
+        addRowToTable(detailsTable, "Name", name);
+        addRowToTable(detailsTable, "Surname", surname);
+        addRowToTable(detailsTable, "Class", studentClass);
+        addRowToTable(detailsTable, "Gender", gender);
+        addRowToTable(detailsTable, "Hobbies", hobbies);
+        addRowToTable(detailsTable, "Marks", marks);
+    }
+
+    private void addRowToTable(TableLayout table, String label, String value) {
+        TableRow row = new TableRow(this);
+        TextView labelTextView = new TextView(this);
+        labelTextView.setText(label);
+        TextView valueTextView = new TextView(this);
+        valueTextView.setText(value);
+        row.addView(labelTextView);
+        row.addView(valueTextView);
+        table.addView(row);
+    }
+}
+=======================================================================
+

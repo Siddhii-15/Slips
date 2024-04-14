@@ -1,0 +1,198 @@
+Q.1
+
+****activity_main.xml
+--------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context="com.example.borderlayout.MainActivity"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/border">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Hello World!"
+            android:background="#A00000FF"
+            android:gravity="center_vertical|center_horizontal"
+            android:textColor="#ffffff"
+            android:textSize="40sp" />
+    </LinearLayout>
+
+-------------------------------MainActivity.JAVA-------------------------------
+
+package com.example.borderlayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+
+---------------------------------------
+***border.xml
+(under res/drawable)
+--------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="20dp"/>
+    <padding android:left="20dp" android:right="20dp" android:top="20dp" android:bottom="20dp"/>
+    <solid android:color="#CCCCCC"/>
+</shape>
+
+==========================================================================================================
+
+Q.2
+
+------------------------------------
+activity_main.xml
+---------------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/edit_text_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/edit_text_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_below="@id/edit_text_email"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:layout_below="@id/edit_text_password"
+        android:onClick="login"/>
+
+</RelativeLayout>
+
+-------------------------------
+.JAVA
+-----------------------------------
+package com.example.myapplication;
+
+import android.content.Intent;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText editTextEmail, editTextPassword;
+    // Hardcoded email and password for demonstration purposes
+    private static final String CORRECT_EMAIL = "siddhii@example.com";
+    private static final String CORRECT_PASSWORD = "password";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editTextEmail = findViewById(R.id.edit_text_email);
+        editTextPassword = findViewById(R.id.edit_text_password);
+    }
+
+    public void login(View view) {
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        // Check if email and password match the hardcoded credentials
+        if (email.equals(CORRECT_EMAIL) && password.equals(CORRECT_PASSWORD)) {
+            // If matched, show a toast message and navigate to the next activity
+            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("EMAIL", email); // Pass the email to the NextActivity
+            startActivity(intent);
+        } else {
+            // If not matched, show a toast message indicating invalid credentials
+            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+
+-----------------------------------
+activity_home.xml
+----------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".HomeActivity">
+
+    <TextView
+        android:id="@+id/text_view_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>
+
+------------------------------
+HomeActivity,JAVA
+------------------------------
+package com.example.myapplication;
+
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import android.widget.TextView;
+
+
+
+public class HomeActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+
+        // Get the TextView reference
+        TextView textViewWelcome = findViewById(R.id.text_view_welcome);
+
+        // Retrieve the email from the intent
+        String email = getIntent().getStringExtra("EMAIL");
+
+        // Display the welcome message
+        String welcomeMessage = "Welcome, " + email + "!";
+        textViewWelcome.setText(welcomeMessage);
+    }
+}
+

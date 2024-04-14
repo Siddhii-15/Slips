@@ -1,0 +1,162 @@
+Q1)
+XML
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <Switch
+        android:id="@+id/switchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        android:layout_marginBottom="16dp"/>
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toggle"
+        android:layout_below="@id/switchButton"/>
+
+    <TextView
+        android:id="@+id/switchStateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toggleButton"
+        android:text="Switch State: "
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/toggleStateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/switchStateTextView"
+        android:text="Toggle State: "
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
+---------------------------------------------------------------------------------------
+JAVA
+
+package com.example.slip10_q1;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.ToggleButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView switchStateTextView;
+    private TextView toggleStateTextView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        switchStateTextView = findViewById(R.id.switchStateTextView);
+        toggleStateTextView = findViewById(R.id.toggleStateTextView);
+
+        Switch switchButton = findViewById(R.id.switchButton);
+        ToggleButton toggleButton = findViewById(R.id.toggleButton);
+
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                updateSwitchState(isChecked);
+            }
+        });
+
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                updateToggleState(isChecked);
+            }
+        });
+    }
+
+    private void updateSwitchState(boolean isChecked) {
+        if (isChecked) {
+            switchStateTextView.setText("Switch State: ON");
+        } else {
+            switchStateTextView.setText("Switch State: OFF");
+        }
+    }
+
+    private void updateToggleState(boolean isChecked) {
+        if (isChecked) {
+            toggleStateTextView.setText("Toggle State: ON");
+        } else {
+            toggleStateTextView.setText("Toggle State: OFF");
+        }
+    }
+}
+====================================================================================================================
+Q2)
+XML
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>
+--------------------------------------------------------------------------------------------
+JAVA
+
+package com.example.slip10_q2b;
+
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Array of fruits
+        String[] fruitsArray = {"Apple", "Banana", "Orange", "Grapes", "Mango", "Strawberry"};
+
+        // Convert array to list
+        List<String> fruitsList = new ArrayList<>(Arrays.asList(fruitsArray));
+
+        // Initialize ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, fruitsList);
+
+        // Get reference to ListView
+        ListView listView = findViewById(R.id.listView);
+
+        // Set adapter to ListView
+        listView.setAdapter(adapter);
+    }
+}
+=========================================================================================================================

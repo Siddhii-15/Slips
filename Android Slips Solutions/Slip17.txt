@@ -1,0 +1,319 @@
+﻿Q.1
+----------------------------
+Main activity . JAVA
+------------------------
+
+package com.example.a17a;
+
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+
+public class MainActivity extends AppCompatActivity {
+
+
+private static final int REQUEST_PHONE_CALL = 1;
+private static final String PHONE_NUMBER = "7870590485";
+
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+
+
+Button callButton = findViewById(R.id.call_button);
+callButton.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v) {
+if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+} else {
+makePhoneCall();
+}
+}
+});
+}
+
+
+private void makePhoneCall() {
+Intent callIntent = new Intent(Intent.ACTION_CALL);
+callIntent.setData(Uri.parse("tel:" + PHONE_NUMBER));
+startActivity(callIntent);
+}
+
+
+@Override
+public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+if (requestCode == REQUEST_PHONE_CALL) {
+if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+makePhoneCall();
+}
+}
+}
+}
+
+---------------------
+Xml (activity_main.xml)
+-------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+
+
+<Button
+android:id="@+id/call_button"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="@string/make_phone_call"
+android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>
+
+--------------------
+AndroidManifest
+-------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.example.a17a">
+
+
+<uses-permission android:name="android.permission.CALL_PHONE" />
+
+
+<application
+android:allowBackup="true"
+android:icon="@mipmap/ic_launcher"
+android:label="@string/app_name"
+android:roundIcon="@mipmap/ic_launcher_round"
+android:supportsRtl="true"
+android:theme="@style/AppTheme">
+<activity android:name=".MainActivity"
+android:exported="true">
+<intent-filter>
+<action android:name="android.intent.action.MAIN" />
+
+
+<category android:name="android.intent.category.LAUNCHER" />
+</intent-filter>
+</activity>
+</application>
+
+
+</manifest>
+
+------------------------------------
+Style.xml ( res/drawable/make resource file) 
+-------------------------------------
+
+<resources>
+<!-- Base application theme -->
+<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+<!-- Customize your theme here -->
+<item name="colorPrimary">@color/colorPrimary</item>
+<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+<item name="colorAccent">@color/colorAccent</item>
+<!-- Other customizations -->
+</style>
+</resources>
+
+-----------------------------------------------
+Colors.xml (res/values/colors.xml)
+-----------------------------------------------
+
+<resources>
+<!-- Color Primary -->
+<color name="colorPrimary">#3F51B5</color>
+
+
+<!-- Color Primary Dark -->
+<color name="colorPrimaryDark">#303F9F</color>
+
+
+<!-- Color Accent -->
+<color name="colorAccent">#FF4081</color>
+</resources>
+
+============================================================================================================
+Q.2
+
+------------------
+XML file
+------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+
+
+<EditText
+android:id="@+id/number_input"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:hint="Enter a number"
+android:inputType="number" />
+
+
+<Button
+android:id="@+id/calculate_button"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_below="@id/number_input"
+android:text="Calculate"
+android:layout_marginTop="8dp"/>
+
+
+<TextView
+android:id="@+id/result_text"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_below="@id/calculate_button"
+android:layout_marginTop="16dp"/>
+
+
+</RelativeLayout>
+
+-------------------------------
+MainActivity.JAVA
+-------------------------------
+
+package com.example.a11b2;
+
+
+import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+
+
+public class MainActivity extends AppCompatActivity {
+
+
+EditText numberInput;
+Button calculateButton;
+TextView resultTextView;
+
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+
+
+numberInput = findViewById(R.id.number_input);
+calculateButton = findViewById(R.id.calculate_button);
+resultTextView = findViewById(R.id.result_text);
+
+
+// Register the button for context menu
+registerForContextMenu(calculateButton);
+
+
+calculateButton.setOnClickListener(new View.OnClickListener() {
+@Override
+public void onClick(View v) {
+calculate();
+}
+});
+}
+
+
+private void calculate() {
+try {
+int number = Integer.parseInt(numberInput.getText().toString());
+int factorial = calculateFactorial(number);
+int sumOfDigits = calculateSumOfDigits(number);
+resultTextView.setText("Number: " + number + "\nFactorial: " + factorial + "\nSum of Digits: " + sumOfDigits);
+} catch (NumberFormatException e) {
+resultTextView.setText("Invalid input");
+}
+}
+
+
+private int calculateFactorial(int n) {
+if (n == 0)
+return 1;
+else
+return n * calculateFactorial(n - 1);
+}
+
+
+private int calculateSumOfDigits(int n) {
+int sum = 0;
+while (n > 0) {
+sum += n % 10;
+n /= 10;
+}
+return sum;
+}
+
+
+@Override
+public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+super.onCreateContextMenu(menu, v, menuInfo);
+// Add menu items to calculate factorial and sum
+if (v.getId() == R.id.calculate_button) {
+menu.add("Calculate Factorial");
+menu.add("Calculate Sum");
+}
+}
+
+
+@Override
+public boolean onContextItemSelected(MenuItem item) {
+if (item.getTitle().equals("Calculate Factorial")) {
+calculateFactorial();
+return true;
+} else if (item.getTitle().equals("Calculate Sum")) {
+calculateSum();
+return true;
+}
+return super.onContextItemSelected(item);
+}
+
+
+private void calculateFactorial() {
+try {
+int number = Integer.parseInt(numberInput.getText().toString());
+int factorial = calculateFactorial(number);
+resultTextView.setText("Factorial of " + number + ": " + factorial);
+} catch (NumberFormatException e) {
+resultTextView.setText("Invalid input");
+}
+}
+
+
+private void calculateSum() {
+try {
+int number = Integer.parseInt(numberInput.getText().toString());
+int sumOfDigits = calculateSumOfDigits(number);
+resultTextView.setText("Sum of digits of " + number + ": " + sumOfDigits);
+} catch (NumberFormatException e) {
+resultTextView.setText("Invalid input");
+}
+}
+}
